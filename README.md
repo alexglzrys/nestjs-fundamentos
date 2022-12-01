@@ -71,3 +71,14 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+## Prettier
+
+Se recomienda instalar la extensión prettier en el editor de código y formatear nuestro código (ya sea de forma automática al guardar o por cada archivo) de nest para que el linter no muestre problemas y no nos deje avanzar
+
+```
+control + shift + p
+Formar Document
+Prettier
+```
