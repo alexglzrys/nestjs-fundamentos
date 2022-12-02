@@ -17,7 +17,7 @@ import { CreateCarDto } from './dto/create-car.dto';
 // Controlador para el módulo de automóviles
 // * Comando: nest g co cars
 @Controller('cars')
-@UsePipes(ValidationPipe) // Cualquier DTO declarado en alguno de los métodos de este controlador, será validado
+//@UsePipes(ValidationPipe) // Cualquier DTO declarado en alguno de los métodos de este controlador, será validado
 export class CarsController {
   // Inyectar el servicio encargado gestionar los autos
   constructor(private readonly carsService: CarsService) {}
