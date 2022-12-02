@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 // Los servicios son los encargados de comunicarse por lo general con la base de datos para enviarle o recuperar cierta data
 // * Comando: nest g s cars
@@ -27,6 +27,10 @@ export class CarsService {
   }
 
   findOneById(id: number) {
-    return this.cars.find((car) => car.id == id);
+    const car = this.cars.find((car) => car.id == id);
+    // Si no se encontró el auto, lanzamos una excepción
+    // Nest nos tiene cubiertos con muchos filtros de excepción personalizados (capa de excepciones), los cuales podemos lanzar en cualquier punto de nuestra lógica cuando se vea necesario
+    if (!car) throw new NotFoundException(`Car with id '${id}' not found`);
+    return car;
   }
 }
