@@ -29,8 +29,8 @@ export class CarsController {
   // El decorador Param contiene los parámetros de ruta enviados en la URL
   // Los Pipes en los parámetros, nos permiten transformar la data del request. Por defecto todo parámetro enviado en la ruta, Nest la recupera como string. Si la data no se puede transformar, automáticamente, NEST lanza un error HTTP personalizado
   @Get(':id')
-  getCarById(@Param('id', ParseIntPipe) id: number) {
-    return this.carsService.findOneById(Number(id));
+  getCarById(@Param('id') id: string) {
+    return this.carsService.findOneById(id);
   }
 
   // El decorador Body, contiene todo el cuerpo de la petición
