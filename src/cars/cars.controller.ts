@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { CarsService } from './cars.service';
 
 // Controlador para el módulo de automóviles
@@ -17,8 +17,9 @@ export class CarsController {
 
   // Ruta para devolver un solo auto por su id
   // ? http;//localhost:3000/cars/param
+  // Los Pipes en los parámetros, nos permiten transformar la data del request. Por defecto todo parámetro enviado en la ruta, Nest la recupera como string. Si la data no se puede transformar, automáticamente, NEST lanza un error HTTP personalizado
   @Get(':id')
-  getCarById(@Param('id') id: string) {
+  getCarById(@Param('id', ParseIntPipe) id: number) {
     return this.carsService.findOneById(Number(id));
   }
 }
