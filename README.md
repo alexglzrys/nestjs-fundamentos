@@ -82,3 +82,5 @@ control + shift + p
 Formar Document
 Prettier
 ```
+
+Si molestan los mensajes, podemos desinstalar prettier del proyecto, para anular el linter. Pero no se recomienda hacer esto en producción

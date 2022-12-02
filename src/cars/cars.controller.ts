@@ -8,12 +8,16 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CarsService } from './cars.service';
+import { CreateCarDto } from './dto/create-car.dto';
 
 // Controlador para el módulo de automóviles
 // * Comando: nest g co cars
 @Controller('cars')
+@UsePipes(ValidationPipe) // Cualquier DTO declarado en alguno de los métodos de este controlador, será validado
 export class CarsController {
   // Inyectar el servicio encargado gestionar los autos
   constructor(private readonly carsService: CarsService) {}
@@ -36,10 +40,14 @@ export class CarsController {
   }
 
   // El decorador Body, contiene todo el cuerpo de la petición
+  // Los DTO nos ayudan a modelar la data que viene desde un request, con la intensión de verificar que los datos enviados cumplan con los requisitos necesarios para poder llevar a cabo la tarea
   // ? http;//localhost:3000/cars
+  // Para Validar la información con los DTO, es necesario instalar algunos paquetes de node - class-validator y class-transformer
+  // La validación de un DTO la podemos hacer a nivel de método, clase (controlador), a nivel de aplicación, etc. - @UsePipe(ValidationPipe)
   @Post()
-  createCar(@Body() body: any) {
-    return body;
+  // @UsePipes(ValidationPipe)
+  createCar(@Body() createCarDto: CreateCarDto) {
+    return createCarDto;
   }
 
   // Actualización
