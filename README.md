@@ -84,3 +84,11 @@ Prettier
 ```
 
 Si molestan los mensajes, podemos desinstalar prettier del proyecto, para anular el linter. Pero no se recomienda hacer esto en producción
+
+## Generar recursos completos
+
+NestJS con un simple comando puede generar el scaffolding completo de un recurso, ya sea de tipo REST, GraphQL, Socket, etc.
+Genera automáticamente el módulo, controlador, servicio, entities, DTOS
+```
+nest g res brands
+```
