@@ -68,4 +68,11 @@ export class CarsService {
     });
     return carDB;
   }
+
+  delete(id: string) {
+    // Localizar el auto a eliminar
+    const carDB = this.findOneById(id);
+    // Filtrar el arreglo de autos para eliminar el auto solicitado
+    this.cars = this.cars.filter((car) => car.id !== carDB.id);
+  }
 }
