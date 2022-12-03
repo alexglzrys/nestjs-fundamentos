@@ -1,26 +1,64 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
+import { Brand } from './entities/brand.entity';
 
 @Injectable()
 export class BrandsService {
+  // Listado de marcas
+  private _brands: Brand[] = [
+    {
+      id: uuid(),
+      name: 'Toyota',
+      createdAt: new Date().getTime(),
+    },
+  ];
+
   create(createBrandDto: CreateBrandDto) {
-    return 'This action adds a new brand';
+    // Obtnego la propiedad name de la petición
+    const { name } = createBrandDto;
+    // Genero la estructura de una nueva marca
+    const newBrand: Brand = {
+      id: uuid(),
+      name: name.toLocaleLowerCase(),
+      createdAt: new Date().getTime(),
+    };
+    // Agregar al listado de marcas
+    this._brands.push(newBrand);
+    return newBrand;
   }
 
   findAll() {
-    return `This action returns all brands`;
+    return this._brands;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} brand`;
+  findOne(id: string) {
+    // Localizar la marca por su id
+    const brand = this._brands.find((brand) => brand.id === id);
+    // En caso de no existir, lanzamos una excepción de Nest tipo NotFound 400
+    if (!brand) throw new NotFoundException(`Brand with id ${id} not found`);
+    return brand;
   }
 
-  update(id: number, updateBrandDto: UpdateBrandDto) {
-    return `This action updates a #${id} brand`;
+  update(id: string, updateBrandDto: UpdateBrandDto) {
+    let brand = this.findOne(id);
+    this._brands = this._brands.map((currentBrand) => {
+      if (currentBrand.id === id) {
+        brand = {
+          ...brand,
+          ...updateBrandDto,
+          updatedAt: new Date().getTime(),
+          id,
+        };
+        return brand;
+      }
+      return currentBrand;
+    });
+    return brand;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} brand`;
+  remove(id: string) {
+    this._brands = this._brands.filter((brand) => brand.id !== id);
   }
 }
