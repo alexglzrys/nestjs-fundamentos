@@ -58,21 +58,6 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-
-
 ## Prettier
 
 Se recomienda instalar la extensión prettier en el editor de código y formatear nuestro código (ya sea de forma automática al guardar o por cada archivo) de nest para que el linter no muestre problemas y no nos deje avanzar
@@ -91,4 +76,11 @@ NestJS con un simple comando puede generar el scaffolding completo de un recurso
 Genera automáticamente el módulo, controlador, servicio, entities, DTOS
 ```
 nest g res brands
+```
+
+## Populate Data
+
+Sembrar datos semilla para los modelos de mi aplicación
+```
+http://localhost:3000/seed
 ```

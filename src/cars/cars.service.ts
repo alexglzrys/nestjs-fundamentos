@@ -75,4 +75,9 @@ export class CarsService {
     // Filtrar el arreglo de autos para eliminar el auto solicitado
     this.cars = this.cars.filter((car) => car.id !== carDB.id);
   }
+
+  // Método que permite sembrar data semilla para los autos
+  fillCarsWithSeedData(cars: Car[]) {
+    this.cars = cars;
+  }
 }

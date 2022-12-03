@@ -61,4 +61,9 @@ export class BrandsService {
   remove(id: string) {
     this._brands = this._brands.filter((brand) => brand.id !== id);
   }
+
+  // Método que permite sembrar data semilla para las marcas
+  fillBrandsWithSeedData(brands: Brand[]) {
+    this._brands = brands;
+  }
 }
