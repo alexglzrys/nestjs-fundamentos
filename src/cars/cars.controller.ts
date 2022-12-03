@@ -8,8 +8,6 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
@@ -47,7 +45,8 @@ export class CarsController {
   @Post()
   // @UsePipes(ValidationPipe)
   createCar(@Body() createCarDto: CreateCarDto) {
-    return createCarDto;
+    // Registrar un nuevo carro con los datos enviados a través del cuerpo de la petición
+    return this.carsService.create(createCarDto);
   }
 
   // Actualización
