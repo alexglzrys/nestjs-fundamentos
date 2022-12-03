@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Car } from './interfaces/car.interface';
 // Librería para generar uuid únicos (estilo id de mongoDB)
 import { v4 as uuidv4 } from 'uuid';
-import { CreateCarDto } from './dto/create-car.dto';
+import { CreateCarDto, UpdateCarDto } from './dto';
 
 // Los servicios son los encargados de comunicarse por lo general con la base de datos para enviarle o recuperar cierta data
 // * Comando: nest g s cars
@@ -47,5 +47,25 @@ export class CarsService {
     // Almacenar el nuevo carro en la lista de carros
     this.cars.push(car);
     return car;
+  }
+
+  update(id: string, updateCarDto: UpdateCarDto) {
+    // Localizar el auto (no se reinventa la rueda, ya existe un método para ello en el servicio)
+    let carDB = this.findOneById(id);
+    // En este punto, el auto se localizo, por tanto, mapear el arreglo de autos, actualizando el auto localizado con su nueva data
+    this.cars = this.cars.map((car) => {
+      if (car.id === id) {
+        // Se respeta la data actual, se actualiza solo la info que se manda en la petición, pero adicionalmente, se sigue respetando el id original
+        // Se puede lnzar un BadRequestException si el id del cuerpo de la petición es diferente, pero con esta simple solución se ignora
+        carDB = {
+          ...carDB,
+          ...updateCarDto,
+          id,
+        };
+        return carDB;
+      }
+      return car;
+    });
+    return carDB;
   }
 }

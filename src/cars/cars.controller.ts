@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
+import { UpdateCarDto } from './dto/update-car.dto';
 
 // Controlador para el módulo de automóviles
 // * Comando: nest g co cars
@@ -51,9 +52,13 @@ export class CarsController {
 
   // Actualización
   // ? http;//localhost:3000/cars/3
+  // El cuerpo de la petición para una actualización por lo general es opcional, por ello se utilza un DTO diferente
   @Patch(':id')
-  updateCar(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
-    return body;
+  updateCar(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Body() updateCarDto: UpdateCarDto,
+  ) {
+    return this.carsService.update(id, updateCarDto);
   }
 
   // Eliminar
